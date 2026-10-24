@@ -1,0 +1,68 @@
+{
+  "name": "reno-gestion",
+  "version": "1.0.0",
+  "description": "Outil de gestion local pour entreprise de rénovation générale (clients, chantiers, devis/factures, employés, dépenses, matériel) — sans système de connexion.",
+  "private": true,
+  "author": "Sanitari&co",
+  "main": "main.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "seed": "ts-node src/seed.ts",
+    "electron:dev": "electron .",
+    "dist:win": "npm run build && electron-builder --win --x64"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.21"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^3.7.2",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.2",
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.2"
+  },
+  "allowScripts": {
+    "electron@33.4.11": true
+  },
+  "build": {
+    "appId": "co.sanitari.gestion-chantiers",
+    "productName": "Sanitari and Co - Gestion de chantiers",
+    "asar": false,
+    "files": [
+      "dist/**/*",
+      "public/**/*",
+      "main.js",
+      "package.json",
+      "!node_modules/**/*"
+    ],
+    "npmRebuild": false,
+    "extraResources": [
+      {
+        "from": "build-assets/icon.ico",
+        "to": "icon.ico"
+      }
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": [
+        "portable"
+      ]
+    },
+    "portable": {
+      "artifactName": "SanitariCo-Gestion-Chantiers.exe"
+    }
+  }
+}
